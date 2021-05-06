@@ -1,5 +1,5 @@
 # Linha de comando para teste rápido:
-# python deteccao_mascara_imagem_estatica.py --imagem exemplos/exemplo_01.png
+# python deteccao_face_imagem_estatica.py --imagem exemplos/exemplo_01.png
 
 # Importa os pacotes necessarios para o projeto
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
