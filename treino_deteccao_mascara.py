@@ -60,7 +60,7 @@ for caminhoImagem in caminhoImagens:
 	data.append(imagem)
 	legendas.append(legenda)
 
-# Converte data e legendas para vetores numpy 
+# Converte dados para float e legendas para vetores numpy 
 data = np.array(data, dtype="float32")
 legendas = np.array(legendas)
 
@@ -69,7 +69,7 @@ lb = LabelBinarizer()
 legendas = lb.fit_transform(legendas)
 legendas = to_categorical(legendas)
 
-# Particiona dados para utilizar 75% para treino e 25% para testes
+# Particiona dados para utilizar 80% para treino e 20% para testes
 (treinoX, testeX, treinoY, testeY) = train_test_split(data, legendas,
 	test_size=0.20, stratify=legendas, random_state=42)
 

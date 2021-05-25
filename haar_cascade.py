@@ -1,3 +1,5 @@
+# Código retirado do site do OpenCV. Disponível em: https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html
+
 from __future__ import print_function
 import cv2 as cv
 import argparse
