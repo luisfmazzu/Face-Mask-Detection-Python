@@ -12,6 +12,7 @@ import imutils
 import time
 import cv2
 import os
+import timeit
 
 def deteccao_mascara_webcam(frame, faceNet, mascaraNet):
 	(a, l) = frame.shape[:2]
@@ -77,9 +78,9 @@ print("-- Detectando modelo de deteccao de face...")
 face_cascade_name = args["face_cascade"]
 face_cascade = cv2.CascadeClassifier()
 
-#-- 1. Load the cascades
+# Se houve erro de carregamento do haar cascade
 if not face_cascade.load(cv2.samples.findFile(face_cascade_name)):
-    print('--(!)Error loading face cascade')
+    print('-- Erro de carregamento do haar cascade')
     exit(0)
 
 # Carrega o modelo de deteccao de mascara
@@ -91,8 +92,12 @@ print("-- Inicializando webcam...")
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
 
+counter = 0;
+buffer = 0;
+
 # Loop entre os frames da webcam
 while True:
+	start = timeit.timeit()
 	# Pega o frame da webcam e redimensiona para 400x400
 	frame = vs.read()
 	frame = imutils.resize(frame, width=400)
@@ -122,6 +127,14 @@ while True:
 
 	# Imagem de saida
 	cv2.imshow("Frame", frame)
+	
+	end = timeit.timeit()
+	buffer += end - start
+	counter += 1
+	if(counter == 1000):
+		print("-- Tempo medio de execucao")
+		print(buffer / 1000)
+	
 	key = cv2.waitKey(1) & 0xFF
 
 	# Apertar 'q' para sair do loop

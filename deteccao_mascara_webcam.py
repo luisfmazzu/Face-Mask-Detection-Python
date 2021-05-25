@@ -12,6 +12,7 @@ import imutils
 import time
 import cv2
 import os
+import timeit
 
 def deteccao_mascara_webcam(frame, faceNet, mascaraNet):
 	# Pega as dimensoes do blob e redimensiona
@@ -92,8 +93,12 @@ print("-- Inicializando webcam...")
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
 
+counter = 0;
+buffer = 0;
+
 # Loop entre os frames da webcam
 while True:
+	start = timeit.timeit()
 	# Pega o frame da webcam e redimensiona para 400x400
 	frame = vs.read()
 	frame = imutils.resize(frame, width=400)
@@ -123,6 +128,14 @@ while True:
 
 	# Imagem de saida
 	cv2.imshow("Frame", frame)
+	
+	end = timeit.timeit()
+	buffer += end - start
+	counter += 1
+	if(counter == 1000):
+		print("-- Tempo medio de execucao")
+		print(buffer / 1000)
+	
 	key = cv2.waitKey(1) & 0xFF
 
 	# Apertar 'q' para sair do loop
